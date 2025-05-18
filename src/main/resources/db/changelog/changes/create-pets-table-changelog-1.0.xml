@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                      http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.5.xsd">
+
+<changeSet id="1" author="liquibase">
+    <createTable tableName="pets">
+        <column name="id" type="BIGINT" autoIncrement="true">
+            <constraints primaryKey="true" nullable="false"/>
+        </column>
+        <column name="name" type="VARCHAR(100)">
+            <constraints nullable="false"/>
+        </column>
+        <column name="species" type="VARCHAR(50)">
+            <constraints nullable="false"/>
+        </column>
+        <column name="breed" type="VARCHAR(100)"/>
+        <column name="date_of_birth" type="DATE"/>
+        <column name="weight" type="DECIMAL(5,2)"/>
+        <column name="description" type="TEXT"/>
+        <column name="owner_name" type="VARCHAR(255)"/>
+        <column name="owner_contact" type="VARCHAR(100)"/>
+        <column name="created_at" type="TIMESTAMP" defaultValueComputed="CURRENT_TIMESTAMP">
+            <constraints nullable="false"/>
+        </column>
+        <column name="updated_at" type="TIMESTAMP" defaultValueComputed="CURRENT_TIMESTAMP">
+            <constraints nullable="false"/>
+        </column>
+    </createTable>
+</changeSet>
+
+<changeSet id="2" author="liquibase">
+    <createIndex indexName="idx_pets_name" tableName="pets">
+        <column name="name"/>
+    </createIndex>
+    <createIndex indexName="idx_pets_species" tableName="pets">
+        <column name="species"/>
+    </createIndex>
+</changeSet>
+
+<changeSet id="3" author="liquibase">
+    <comment>Insert sample pet data</comment>
+    <insert tableName="pets">
+        <column name="name" value="Digby"/>
+        <column name="species" value="Dog"/>
+        <column name="breed" value="Havanese"/>
+        <column name="date_of_birth" value="2015-12-07"/>
+        <column name="weight" value="14.0"/>
+        <column name="description" value="Best dog in the world. He loves Cheeseburgers"/>
+        <column name="owner_name" value="Matt Porter"/>
+        <column name="owner_contact" value="matthew.js.porter@gmail.com"/>
+    </insert>
+    <insert tableName="pets">
+        <column name="name" value="Luna"/>
+        <column name="species" value="Cat"/>
+        <column name="breed" value="Siamese"/>
+        <column name="date_of_birth" value="2021-07-22"/>
+        <column name="weight" value="4.2"/>
+        <column name="description" value="Vocal and affectionate; enjoys sitting on laps and being brushed. Can be territorial with other cats but bonds closely with her human family."/>
+        <column name="owner_name" value="Emily Johnson"/>
+        <column name="owner_contact" value="emily.j@example.com"/>
+    </insert>
+    <insert tableName="pets">
+        <column name="name" value="Rocky"/>
+        <column name="species" value="Dog"/>
+        <column name="breed" value="German Shepherd"/>
+        <column name="date_of_birth" value="2020-11-10"/>
+        <column name="weight" value="32.1"/>
+        <column name="description" value="Intelligent and protective; excellent at obedience training. Alert and watchful, but can be reserved with strangers. Needs regular mental stimulation."/>
+        <column name="owner_name" value="Michael Brown"/>
+        <column name="owner_contact" value="mbrown@example.com"/>
+    </insert>
+    <insert tableName="pets">
+        <column name="name" value="Coco"/>
+        <column name="species" value="Bird"/>
+        <column name="breed" value="Cockatiel"/>
+        <column name="date_of_birth" value="2023-01-05"/>
+        <column name="weight" value="0.3"/>
+        <column name="description" value="Playful and musical; loves to whistle tunes and mimic household sounds. Forms strong bonds with primary caretaker and enjoys being handled gently."/>
+        <column name="owner_name" value="Sophie Williams"/>
+        <column name="owner_contact" value="swilliams@example.com"/>
+    </insert>
+    <insert tableName="pets">
+        <column name="name" value="Charlie"/>
+        <column name="species" value="Cat"/>
+        <column name="breed" value="Maine Coon"/>
+        <column name="date_of_birth" value="2019-09-18"/>
+        <column name="weight" value="6.7"/>
+        <column name="description" value="Gentle giant with a playful personality; fascinated by water and enjoys interactive toys. Very social and follows owners from room to room like a dog."/>
+        <column name="owner_name" value="David Martinez"/>
+        <column name="owner_contact" value="dmartinez@example.com"/>
+    </insert>
+</changeSet>
+</databaseChangeLog>
