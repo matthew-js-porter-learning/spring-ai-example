@@ -3,7 +3,7 @@ import org.springframework.data.annotation.Id;
 
 import java.util.Date;
 
-public record Pets(
+public record Pet(
         @Id int id,
         String name,
         String species,

@@ -1,6 +1,6 @@
 package com.example.spring_ai_example.assistant;
 
-import com.example.spring_ai_example.pet.PetsRepository;
+import com.example.spring_ai_example.pet.PetRepository;
 import org.springframework.ai.chat.client.ChatClient;
 import org.springframework.ai.chat.client.advisor.PromptChatMemoryAdvisor;
 import org.springframework.ai.chat.client.advisor.api.Advisor;
@@ -38,13 +38,11 @@ class ChatClientConfiguration {
     }
 
     @Bean
-    CommandLineRunner commandLineRunner(final PetsRepository petsRepository, final VectorStore vectorStore) {
-        return args -> {
-            petsRepository.findAll().forEach(pet -> {
-               var document = new Document("id: %s, name: %s, species: %s, breed: %s, dateOfBirth: %s, weight: %s, description: %s, ownerName: %s, ownerContact: %s"
-                       .formatted(pet.id(), pet.name(), pet.species(), pet.breed(), pet.dateOfBirth(), pet.weight(), pet.description(), pet.ownerName(), pet.ownerContact()));
-               vectorStore.add(List.of(document));
-            });
-        };
+    CommandLineRunner commandLineRunner(final PetRepository petRepository, final VectorStore vectorStore) {
+        return args -> petRepository.findAll().forEach(pet -> {
+           var document = new Document("id: %s, name: %s, species: %s, breed: %s, dateOfBirth: %s, weight: %s, description: %s, ownerName: %s, ownerContact: %s"
+                   .formatted(pet.id(), pet.name(), pet.species(), pet.breed(), pet.dateOfBirth(), pet.weight(), pet.description(), pet.ownerName(), pet.ownerContact()));
+           vectorStore.add(List.of(document));
+        });
     }
 }
