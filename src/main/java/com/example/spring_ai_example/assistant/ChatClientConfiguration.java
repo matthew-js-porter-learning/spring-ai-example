@@ -20,8 +20,15 @@ import java.util.List;
 class ChatClientConfiguration {
 
     @Bean
-    ChatClient chatClient(final ChatClient.Builder chatClientBuilder, final List<Advisor> advisors) {
-        return chatClientBuilder.defaultAdvisors(advisors).build();
+    ChatClient chatClient(final ChatClient.Builder chatClientBuilder, final List<Advisor> advisors, final PetRepository petRepository) {
+        return chatClientBuilder
+                .defaultSystem("""
+                        You are a chat bot for Pete's Pet shop. You help connect people with pets.
+                        you should not try to sell a pet that already has an owner.
+                        """)
+                .defaultAdvisors(advisors)
+                .defaultTools(new AdoptionTools(petRepository))
+                .build();
     }
 
     @Bean
