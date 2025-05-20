@@ -17,9 +17,7 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 
-
 import java.io.IOException;
-
 
 @SpringBootTest(properties = {
         "spring.ai.model.chat=ollama",
@@ -46,13 +44,11 @@ class AssistantControllerTest {
 
     @Container
     @ServiceConnection("ollama")
-    static OllamaContainer ollamaContainer = new OllamaContainer("ollama/ollama:0.5.7");
+    private final static OllamaContainer ollamaContainer = new OllamaContainer("ollama/ollama:0.7.0");
 
     @BeforeAll
     public static void beforeAll() throws IOException, InterruptedException {
        ollamaContainer.execInContainer("ollama", "pull", "mistral");
-       ollamaContainer.execInContainer("ollama", "pull", "llava");
-       ollamaContainer.execInContainer("ollama", "pull", "llama3.2:1b");
        ollamaContainer.execInContainer("ollama", "pull", "mxbai-embed-large");
     }
 
@@ -60,6 +56,5 @@ class AssistantControllerTest {
     void test() throws Exception {
         mockMvc.perform(get("/chat").param("question", "Who is the best dog?")).andExpect(status().isOk())
                 .andExpect(content().string(containsString("Digby")));
-
     }
 }
